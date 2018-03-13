@@ -19,7 +19,7 @@ class Subject {
 
 	publish(msg, someobj) {
 		var scope = someobj || window;
-		for (let fn of this._items){
+		for (let fn of this.handlers){
 			fn(scope, msg)
 		}
 	}
@@ -30,18 +30,18 @@ class Subject {
 
 class Item {
 	constructor(name, quantity, priority, store, section, price){
-		this._name = name
-		this._quantity = quantity
-		this._priorty = priority
-		this._store = store
-		this._section = section
-		this._price = price 
+		this.name = name
+		this.quantity = quantity
+		this.priority = priority
+		this.store = store
+		this.section = section
+		this.price = price 
 
 
-		this._purchased = false;
+		this.purchased = false;
 	}
-	
-	getName() {
+}	
+/*	getName() {
 		return this._name;
 	}
 	
@@ -62,14 +62,21 @@ class Item {
 		return this._price;
 	}
 
-}
+}*/
 
-class shoppingList {
+
+class shoppingList extends Subject{
 	constructor(){
-		this.items = []
+		super()
+		this.newitems = []
+		this.olditems = []
+	}
+	clearlist(){
+		this.newitems = []
 	}
 	add_Item(newitem){
-		this.items.push(newitem)
+		this.newitems.push(newitem)
+		this.publish('newitem',this)
 	}
 
 }
