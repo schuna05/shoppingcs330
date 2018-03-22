@@ -2,12 +2,17 @@ let shoplist = new shoppingList()
 var myView = new ShoppingView(shoplist)
 
 
-if (localStorage.getItem("shop_list") != null){
-	var shopList = JSON.parse(localStorage.getItem("shop_list"))
-	for (let item of shopList){
-		let newitem = new Item(item["name"], item["quantity"], item["priority"], item["store"], item["section"], item["price"])
-		shoplist.add_Item(newitem)
-	}
+fetch("getlist")
+.then(fucntion(response){
+	console.log(response)
+	return response.json()
+})
+
+.then(function(thelist))
+var shopList = JSON.parse(thelist)
+for (let item of shopList){
+	let newitem = new Item(item["name"], item["quantity"], item["priority"], item["store"], item["section"], item["price"])
+	shoplist.add_Item(newitem)
 }
 
 
@@ -18,7 +23,7 @@ function clickedon(){
 	for (let itemid of itemids){
 		itemvals[itemid] = (document.getElementById(itemid).value)
 	}
-	let newitem = new Item(itemvals.name, itemvals.quantity, itemvals.prioriy, itemvals.store, itemvals.section, itemvals.price)
+	let newitem = new Item(itemvals.name, itemvals.quantity, itemvals.priority, itemvals.store, itemvals.section, itemvals.price)
 	shoplist.add_Item(newitem)
 
 }
@@ -50,10 +55,16 @@ function sortList(){
 
 }
 
-function crossOut(rowid, item){
+function crossOut(rowid, item, shoplist){
 	let crossrow = document.getElementById(rowid)
 	crossrow.classList.add("strikeout")
+	setTimeout(afterTwoSeconds(item), 2000)
+}
 
+function afterTwoSeconds(item){
+	item._purchased = true
+	document.getElementById('test').innerHTML = item._purchased
+	
 }
 /*
 	shoplist.add_Item(newitem)
@@ -86,9 +97,28 @@ function crossOut(rowid, item){
 	}
 	row.style.backgroundColor = color
 	document.getElementById('list').appendChild(row);
+
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function(){
+	console.log(this.readyState)
+	if (this.readyState == 4 && this.status == 200){
+		//typical action to be performed when the document is ready:
+		document.getElementById("foo").innerHTML - xhttp.responseText;
+
+	}
+}
+xhttp.open("GET", "/getnum", true)
+xhttp.send()
+
+
+fetch("/getnum").then(function(response){
+	console.log(response)
+	return response.json()
+})
+.catch(error => console.error('Error: ',error))
+.then(function(myJson) {
+	document.getElementById("foo").innerHTML = myJson.number;
+})
+
+
 */
-
-
-
-
-

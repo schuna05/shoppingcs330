@@ -28,8 +28,9 @@ class Subject {
 
 
 
-class Item {
+class Item extends Subject{
 	constructor(name, quantity, priority, store, section, price){
+		super()
 		this.name = name
 		this.quantity = quantity
 		this.priority = priority
@@ -38,32 +39,18 @@ class Item {
 		this.price = price 
 
 
-		this.purchased = false;
+		this._purchased = false;
+	}
+	get purchased(){
+		return this._purchased;
+	}
+	set purchased(state){
+		this._purchased = state
+		this.publish('update',this)
+
+
 	}
 }	
-/*	getName() {
-		return this._name;
-	}
-	
-	getQuantity() {
-		return this._quantity;
-	}
-	getPriority(){ 
-		return this._priorty;
-	}
-	getStore() {
-		return this._store;
-	}
-	getSection() {
-		return this._section;
-	}
-
-	getPrice() {
-		return this._price;
-	}
-
-}*/
-
 
 class shoppingList extends Subject{
 	constructor(){
@@ -77,6 +64,14 @@ class shoppingList extends Subject{
 	add_Item(newitem){
 		this.newitems.push(newitem)
 		this.publish('newitem',this)
+		newitem.subscribe(this.edited.bind(this))
+	}
+	edited(item, msg){
+		this.publish('update',this)
+	}
+	remove_Item(item){
+		this.olditems.push(item)
+		this.newitems.remove(item)
 	}
 
 }

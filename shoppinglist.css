@@ -15,3 +15,15 @@ tr.strikeout td:before {
     border-bottom: 1px solid #111;
     width: 100%;
 }
+
+.high {
+    background-color: #edd;
+}
+
+.medium {
+    background-color: cornsilk;
+}
+
+.low {
+    background-color: #ded
+}
