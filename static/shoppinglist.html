@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>My Shopping List</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="shoppinglist.css">
+	</head>
+	<body>
+		<div class="container">
+		<nav class="navbar navbar-default">
+		  	<div class="container-fluid">
+		    	<div class="navbar-header">
+		     		<a class="navbar-brand" href="#">My Shopping List</a>
+		    	</div>
+		    	<ul class="nav navbar-nav">
+		      		<li class="active"><a href="#">Home</a></li>
+		      		<li><a href="#">Page 1</a></li>
+		      		<li><a href="#">Page 2</a></li>
+		      		<li><a href="#">Page 3</a></li>
+		    	</ul>
+		  	</div>
+		</nav>
+		<div class="panel panel-default">
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input id="name" type="text"></input>
+				<select name="quantity" id="quantity">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+				<select name="priority" id="priority">
+					<option value="high">high</option>
+					<option value="medium">medium</option>
+					<option value="low">low</option>
+				</select>
+				<br>
+				<select name="store" id="store">
+				</select>
+				<select name="section" id="section">
+				</select>
+				<label for="price">Price</label>
+				<input name="price" id="price" type="text"></input>
+				<button onclick="clickedon()" id="add"> Add item</button>
+			</div>
+			<h2 id="test">ds</h2>
+		</div>
+		<table class="table table-bordered">
+			<thead>	
+				<tr>
+					<th></th>
+					<th onclick="sortList()">Name</th>
+					<th>Quantity</th>
+					<th>Store</th>
+					<th>Section</th>
+					<th>Price</th>	
+				</tr>
+			</thead>
+			<tbody id="list"></tbody>
+		</table>
+	</div>
+		<script src="view.js" type="text/javascript"></script>
+		<script src="model.js" type="text/javascript"></script>
+		<script src="shoppinglist.js" type="text/javascript"></script>
+	</body>
+	</html>
