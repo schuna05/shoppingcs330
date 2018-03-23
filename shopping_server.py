@@ -1,12 +1,14 @@
 from flask import Flask, request, jsonify, Response
+import json
 
 app = Flask(__name__)
 
-@app.route('/savelist')
+@app.route('/savelist', methods=['POST'])
 def savelist():
-
-	textfile = open('shop_data.txt', 'w')
-	textfile.write(Request.dumps(request.json))
+	
+	with open('shop_data.txt', 'w') as textfile:
+		#for item in request.json:
+		textfile.write(json.dumps(request.json))
 
 	res = Response('')
 	
@@ -16,11 +18,14 @@ def savelist():
 @app.route('/getlist')
 def getlist():
 
-	textfile = open('shop_data.txt', 'r+')
-	shopitems = textfile.read()
+	with open('shop_data.txt', 'r+') as textfile:
+		#lst = []
+		#for lin in textfile:
+		ln = textfile.read()
+			#lst.append(ln)
+	
+	return jsonify(ln)
 
-	return jsonify(shopitems)
 
-
-
-app.run(debug=True, port=5001)
+if __name__ == "__main__":
+	app.run(debug=True, port=5001)

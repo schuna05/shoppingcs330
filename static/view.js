@@ -11,9 +11,10 @@ class ShoppingView {
 		for (let item of valueList.newitems){
 			if (item._purchased === true){
 				valueList.remove_Item(item)
-			}
+			}else{
 			this.addRow(item, shopTable, currow)
 			currow = currow + 1
+			}
 		}
 		// var currentList = JSON.stringify(valueList.newitems)
 		// localStorage.setItem("shop_list", currentList)
@@ -26,7 +27,7 @@ class ShoppingView {
       	fetch("http://localhost:5001/savelist", config)
       	.then(function(response) {
       		console.log(response)
-      		return response.json()
+      		return response
       	})
 	}
 
@@ -40,7 +41,7 @@ class ShoppingView {
 		check.classList.add("form-control")
 		check.id = "check" + rowid
 		check.onclick = function() {
-			crossOut(row.id, item);
+			crossOut(row.id, item, parent);
 		}
 		row.appendChild(check)
 	

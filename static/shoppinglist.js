@@ -1,19 +1,28 @@
+var stores = ['Target', 'Ace Hardware', 'Walmart', 'Caseys', 'Hyvee']
+var sections = ['Produce', 'Meats', 'Cereal', 'Canned Goods', 'Frozen Foods', 'Dairy', 'Liquor', 'Tools', 'Clothing']
+populateSelect('store', stores)
+populateSelect('section', sections)
+
 let shoplist = new shoppingList()
 var myView = new ShoppingView(shoplist)
 
 
-fetch("getlist")
-.then(fucntion(response){
+fetch("/getlist")
+.then(function(response){
 	console.log(response)
 	return response.json()
 })
 
-.then(function(thelist))
-var shopList = JSON.parse(thelist)
-for (let item of shopList){
-	let newitem = new Item(item["name"], item["quantity"], item["priority"], item["store"], item["section"], item["price"])
-	shoplist.add_Item(newitem)
-}
+
+.then(function(thelist){
+	if (thelist != null){
+		let shopList = JSON.parse(thelist)
+		for (let item of shopList){
+			let newitem = new Item(item["name"], item["quantity"], item["priority"], item["store"], item["section"], item["price"])
+			shoplist.add_Item(newitem)
+		}
+	}
+});
 
 
 
@@ -27,6 +36,17 @@ function clickedon(){
 	shoplist.add_Item(newitem)
 
 }
+function populateSelect(selectId, sList) {
+    let sel = document.getElementById(selectId, sList)
+    for (let s of sList) {
+        let opt = document.createElement("option")
+        opt.value = s
+        opt.innerHTML = s
+        sel.appendChild(opt)
+    }
+}
+
+
 function sortList(){
 	let sortList = []
 	let sortDict = {}
@@ -55,16 +75,15 @@ function sortList(){
 
 }
 
-function crossOut(rowid, item, shoplist){
+function crossOut(rowid, item, tabel){
 	let crossrow = document.getElementById(rowid)
 	crossrow.classList.add("strikeout")
-	setTimeout(afterTwoSeconds(item), 2000)
-}
-
-function afterTwoSeconds(item){
 	item._purchased = true
-	document.getElementById('test').innerHTML = item._purchased
-	
+	setTimeout(delrow, 2000);
+	function delrow(){
+     	var tr = document.getElementById(rowid);
+     	tr.parentElement.removeChild(tr)
+	}
 }
 /*
 	shoplist.add_Item(newitem)

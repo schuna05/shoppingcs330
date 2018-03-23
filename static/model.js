@@ -28,9 +28,9 @@ class Subject {
 
 
 
-class Item extends Subject{
+class Item{
 	constructor(name, quantity, priority, store, section, price){
-		super()
+		//super()
 		this.name = name
 		this.quantity = quantity
 		this.priority = priority
@@ -46,7 +46,7 @@ class Item extends Subject{
 	}
 	set purchased(state){
 		this._purchased = state
-		this.publish('update',this)
+		//this.publish('update',this)
 
 
 	}
@@ -64,14 +64,15 @@ class shoppingList extends Subject{
 	add_Item(newitem){
 		this.newitems.push(newitem)
 		this.publish('newitem',this)
-		newitem.subscribe(this.edited.bind(this))
+		//newitem.subscribe(this.edited.bind(this))
 	}
 	edited(item, msg){
 		this.publish('update',this)
 	}
 	remove_Item(item){
 		this.olditems.push(item)
-		this.newitems.remove(item)
+		let id = this.newitems.indexOf(item)
+		this.newitems.splice(id, 1)
 	}
 
 }
