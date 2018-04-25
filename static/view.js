@@ -11,6 +11,7 @@ class ShoppingView {
 		for (let item of valueList.newitems){
 			if (item._purchased === true){
 				valueList.remove_Item(item)
+				
 			}else{
 			this.addRow(item, shopTable, currow)
 			currow = currow + 1
@@ -24,7 +25,7 @@ class ShoppingView {
 		config.body = JSON.stringify(valueList.newitems)
 		config.headers = {'Content-Type': 'application/json', 'Accept': 'application/json' }
 		
-      	fetch("http://localhost:5001/savelist", config)
+      	fetch("/savelist", config)
       	.then(function(response) {
       		console.log(response)
       		return response

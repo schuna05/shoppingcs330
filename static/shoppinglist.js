@@ -1,13 +1,12 @@
 var stores = ['Target', 'Ace Hardware', 'Walmart', 'Caseys', 'Hyvee']
 var sections = ['Produce', 'Meats', 'Cereal', 'Canned Goods', 'Frozen Foods', 'Dairy', 'Liquor', 'Tools', 'Clothing']
-populateSelect('store', stores)
-populateSelect('section', sections)
 
-let shoplist = new shoppingList()
+
+var shoplist = new shoppingList()
 var myView = new ShoppingView(shoplist)
 
 
-fetch("/getlist")
+fetch('/getlist')
 .then(function(response){
 	console.log(response)
 	return response.json()
@@ -22,7 +21,18 @@ fetch("/getlist")
 			shoplist.add_Item(newitem)
 		}
 	}
-});
+})
+.catch(error => console.error('Error: ', error))
+.then(function(response){
+	if (response != null){
+		for (i in response){
+			let nu = new Item(i)
+		}
+	}
+})
+
+populateSelect('store', stores)
+populateSelect('section', sections)
 
 
 
@@ -75,16 +85,21 @@ function sortList(){
 
 }
 
-function crossOut(rowid, item, tabel){
+function crossOut(rowid, item, table){
 	let crossrow = document.getElementById(rowid)
 	crossrow.classList.add("strikeout")
 	item._purchased = true
+	let newitem = new Item('none','none','none','none','none','none')
+
 	setTimeout(delrow, 2000);
 	function delrow(){
      	var tr = document.getElementById(rowid);
-     	tr.parentElement.removeChild(tr)
+		tr.parentElement.removeChild(tr)
+		newitem._purchased = true
+		shoplist.add_Item(newitem)
 	}
 }
+
 /*
 	shoplist.add_Item(newitem)
 	let list = shoppingList()
